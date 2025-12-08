@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edusign - Login & Sign Up</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <style>
+        /* General Body and Container */
+        body {
+            background: linear-gradient(135deg, #0d6efd, #0dcef0); /* Primary to Info gradient */
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden; /* Prevent scrollbar from moving background */
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        /* The Main Card Container */
+        .auth-container {
+            background: rgba(255, 255, 255, 0.95); /* Slightly transparent white for a modern look */
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            padding: 0;
+            max-width: 900px;
+            width: 90%;
+            display: flex;
+            overflow: hidden;
+            transform: scale(0.95);
+            transition: transform 0.5s ease;
+        }
+
+        .auth-container:hover {
+            transform: scale(1);
+        }
+
+        /* Left side - Animated Banner */
+        .auth-banner {
+            background: linear-gradient(135deg, #198754, #20c997); /* Success to Secondary gradient */
+            color: white;
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Moving background dots/shapes - The "Moving Effect" */
+        .auth-banner::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            left: -50px;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: move-dot 15s linear infinite;
+        }
+
+        .auth-banner::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            right: -50px;
+            width: 150px;
+            height: 150px;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 40% 60% 70% 30% / 30% 60% 40% 70%;
+            animation: move-dot 20s reverse linear infinite;
+        }
+
+        @keyframes move-dot {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(50px, 50px) rotate(180deg); }
+            100% { transform: translate(0, 0) rotate(360deg); }
+        }
+
+        /* Right side - Form Content */
+        .auth-form-wrap {
+            padding: 3rem;
+            flex-grow: 1;
+        }
+
+        .auth-form {
+            transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+        }
+        
+        /* Form Animation Classes */
+        .form-hidden {
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            pointer-events: none;
+            left: 3rem; /* Aligns with padding */
+            right: 3rem;
+        }
+
+        .form-active {
+            opacity: 1;
+            position: relative;
+            pointer-events: all;
+            transform: translateX(0);
+        }
+
+        /* Button styles for social logins */
+        .social-btn {
+            border-radius: 0.5rem;
+            font-weight: 500;
+        }
+        
+        /* Validation Feedback Styling */
+        .invalid-feedback {
+            display: none; /* Controlled by JS validation */
+            font-size: 0.85rem;
+        }
+        
+        .is-invalid + .invalid-feedback {
+            display: block;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .auth-banner {
+                display: none;
+            }
+            .auth-container {
+                width: 95%;
+            }
+            .auth-form-wrap {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container auth-container">
+    <div class="row w-100 g-0">
+        <div class="col-md-5 auth-banner">
+            <i class="bi bi-mortarboard-fill display-2 mb-3"></i>
+            <h2 class="fw-bold mb-3">Edusign</h2>
+            <p class="text-white-50">AI-Powered Sign Language Education</p>
+            
+            <div id="banner-text-login" class="text-center">
+                <h4 class="mt-4">New Here?</h4>
+                <p>Sign up and discover a new way to communicate.</p>
+                <button class="btn btn-outline-light mt-2 fw-bold" onclick="showSignup()">Sign Up</button>
+            </div>
+            
+            <div id="banner-text-signup" class="text-center form-hidden">
+                <h4 class="mt-4">Already a Member?</h4>
+                <p>Welcome back! Please log in to continue your lessons.</p>
+                <button class="btn btn-outline-light mt-2 fw-bold" onclick="showLogin()">Log In</button>
+            </div>
+        </div>
+
+        <div class="col-md-7 auth-form-wrap">
+            
+            <form id="login-form" class="auth-form form-active" onsubmit="handleLogin(event)">
+                <h3 class="mb-4 fw-bold text-primary">Welcome Back</h3>
+                <p class="text-muted mb-4">Please log in to your account.</p>
+
+                <div class="mb-3">
+                    <label for="loginEmail" class="form-label">Email Address</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                        <input type="email" class="form-control" id="loginEmail" required>
+                        <div class="invalid-feedback" id="loginEmailFeedback">
+                            Email is required and must contain an '@' symbol.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label for="loginPassword" class="form-label">Password</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                        <input type="password" class="form-control" id="loginPassword" required>
+                        <div class="invalid-feedback" id="loginPasswordFeedback">
+                            Password is required.
+                        </div>
+                    </div>
+                    <div class="text-end mt-2">
+                        <a href="#" class="text-decoration-none small text-primary">Forgot Password?</a>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100 py-2 fw-bold mb-3">
+                    <i class="bi bi-box-arrow-in-right me-2"></i>Log In
+                </button>
+                
+                <div class="d-flex align-items-center mb-3">
+                    <hr class="flex-grow-1">
+                    <span class="px-3 text-muted small">OR</span>
+                    <hr class="flex-grow-1">
+                </div>
+
+                <div class="d-grid gap-2">
+                    <button type="button" class="btn btn-outline-dark social-btn">
+                        <i class="bi bi-google me-2"></i>Sign in with Google
+                    </button>
+                    <button type="button" class="btn btn-outline-dark social-btn">
+                        <i class="bi bi-facebook me-2"></i>Sign in with Facebook
+                    </button>
+                </div>
+
+                <p class="text-center mt-4 d-md-none">
+                    Don't have an account? <a href="#" class="text-primary fw-bold" onclick="showSignup()">Sign Up</a>
+                </p>
+            </form>
+            
+            <form id="signup-form" class="auth-form form-hidden" onsubmit="handleSignup(event)">
+                <h3 class="mb-4 fw-bold text-success">Create Account</h3>
+                <p class="text-muted mb-4">Join Edusign and start your learning journey.</p>
+                
+                <div class="mb-3">
+                    <label for="signupName" class="form-label">Full Name</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-person"></i></span>
+                        <input type="text" class="form-control" id="signupName" required>
+                        <div class="invalid-feedback">Name is required.</div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="signupEmail" class="form-label">Email Address</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                        <input type="email" class="form-control" id="signupEmail" required>
+                        <div class="invalid-feedback" id="signupEmailFeedback">
+                            Email must contain an '@' symbol and a domain (e.g., user@example.com).
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label for="signupPassword" class="form-label">Password</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                        <input type="password" class="form-control" id="signupPassword" required>
+                        <div class="invalid-feedback" id="signupPasswordFeedback">
+                            Password must be **more than 6 characters**, and contain at least one **letter** and one **number**.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label for="signupConfirmPassword" class="form-label">Confirm Password</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
+                        <input type="password" class="form-control" id="signupConfirmPassword" required>
+                        <div class="invalid-feedback" id="signupConfirmPasswordFeedback">
+                            Passwords do not match.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-check mb-4">
+                    <input class="form-check-input" type="checkbox" id="termsCheck" required>
+                    <label class="form-check-label small" for="termsCheck">
+                        I agree to the <a href="#" class="text-success text-decoration-none">Terms and Conditions</a>
+                    </label>
+                    <div class="invalid-feedback">
+                        You must agree to the terms to sign up.
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-success w-100 py-2 fw-bold mb-3">
+                    <i class="bi bi-person-plus-fill me-2"></i>Sign Up
+                </button>
+
+                <p class="text-center mt-4 d-md-none">
+                    Already have an account? <a href="#" class="text-success fw-bold" onclick="showLogin()">Log In</a>
+                </p>
+            </form>
+            
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    const loginForm = document.getElementById('login-form');
+    const signupForm = document.getElementById('signup-form');
+    const bannerLoginText = document.getElementById('banner-text-login');
+    const bannerSignupText = document.getElementById('banner-text-signup');
+    
+    // --- Form Switching Animation (Moving Effect) ---
+
+    function showSignup() {
+        loginForm.classList.add('form-hidden');
+        loginForm.classList.remove('form-active');
+        
+        signupForm.classList.remove('form-hidden');
+        signupForm.classList.add('form-active');
+        
+        bannerLoginText.classList.add('form-hidden');
+        bannerLoginText.classList.remove('form-active');
+
+        // Delay banner animation to sync with form slide
+        setTimeout(() => {
+            bannerSignupText.classList.remove('form-hidden');
+            bannerSignupText.classList.add('form-active');
+        }, 200);
+        
+        // Reset form validations when switching
+        resetValidation(loginForm);
+    }
+
+    function showLogin() {
+        signupForm.classList.add('form-hidden');
+        signupForm.classList.remove('form-active');
+        
+        loginForm.classList.remove('form-hidden');
+        loginForm.classList.add('form-active');
+        
+        bannerSignupText.classList.add('form-hidden');
+        bannerSignupText.classList.remove('form-active');
+        
+        // Delay banner animation to sync with form slide
+        setTimeout(() => {
+            bannerLoginText.classList.remove('form-hidden');
+            bannerLoginText.classList.add('form-active');
+        }, 200);
+
+        // Reset form validations when switching
+        resetValidation(signupForm);
+    }
+    
+    function resetValidation(form) {
+        form.querySelectorAll('.form-control').forEach(input => {
+            input.classList.remove('is-invalid');
+            input.classList.remove('is-valid');
+        });
+        form.querySelectorAll('.form-check-input').forEach(input => {
+            input.classList.remove('is-invalid');
+            input.classList.remove('is-valid');
+        });
+    }
+
+    // --- Validation Logic ---
+    
+    /**
+     * Checks if a password meets the security requirements.
+     * @param {string} password The password string to validate.
+     * @returns {boolean} True if the password is valid, false otherwise.
+     * Requirements: 
+     * 1. Length > 6 
+     * 2. Contains at least one letter (a-z, A-Z)
+     * 3. Contains at least one number (0-9)
+     */
+    function validatePassword(password) {
+        // 1. Check length
+        if (password.length <= 6) {
+            return false;
+        }
+        
+        // 2. Check for at least one letter (using regex: lookahead for a letter)
+        const hasLetter = /[a-zA-Z]/.test(password);
+        if (!hasLetter) {
+            return false;
+        }
+        
+        // 3. Check for at least one number (using regex: lookahead for a number)
+        const hasNumber = /[0-9]/.test(password);
+        if (!hasNumber) {
+            return false;
+        }
+        
+        return true;
+    }
+
+    /**
+     * Checks if an email is valid (must contain a '@' symbol).
+     * @param {string} email The email string to validate.
+     * @returns {boolean} True if the email is valid, false otherwise.
+     */
+    function validateEmail(email) {
+        // A simple check for the '@' symbol and some characters before and after it.
+        // The HTML 'email' input type handles basic format, but we enforce the '@' here.
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; 
+        return emailRegex.test(email);
+    }
+
+    /**
+     * Applies the 'is-invalid' or 'is-valid' class based on the validation result.
+     * @param {HTMLElement} element The input element.
+     * @param {boolean} isValid The result of the validation function.
+     */
+    function applyValidationClass(element, isValid) {
+        if (isValid) {
+            element.classList.remove('is-invalid');
+            element.classList.add('is-valid');
+        } else {
+            element.classList.add('is-invalid');
+            element.classList.remove('is-valid');
+        }
+    }
+
+    // --- Form Handlers ---
+
+    function handleLogin(event) {
+        event.preventDefault();
+        let formIsValid = true;
+        
+        const emailInput = document.getElementById('loginEmail');
+        const passwordInput = document.getElementById('loginPassword');
+        
+        // Email Validation
+        const emailValid = validateEmail(emailInput.value);
+        applyValidationClass(emailInput, emailValid);
+        if (!emailValid) {
+            formIsValid = false;
+        }
+        
+        // Password Check (only for empty since security checks are on sign-up)
+        const passwordValid = passwordInput.value.length > 0;
+        applyValidationClass(passwordInput, passwordValid);
+        if (!passwordValid) {
+            formIsValid = false;
+        }
+
+        if (formIsValid) {
+            // In a real application, you would send data to a server here.
+            alert("Login Successful! Redirecting to dashboard...");
+            window.location.href = "index.html"; 
+        } else {
+            alert("Please correct the errors in the login form.");
+        }
+    }
+
+    function handleSignup(event) {
+        event.preventDefault();
+        let formIsValid = true;
+        
+        const nameInput = document.getElementById('signupName');
+        const emailInput = document.getElementById('signupEmail');
+        const passwordInput = document.getElementById('signupPassword');
+        const confirmPasswordInput = document.getElementById('signupConfirmPassword');
+        const termsCheck = document.getElementById('termsCheck');
+        
+        // Name Validation
+        const nameValid = nameInput.value.length > 0;
+        applyValidationClass(nameInput, nameValid);
+        if (!nameValid) formIsValid = false;
+        
+        // Email Validation (Required: must contain a special character '@' symbol)
+        const emailValid = validateEmail(emailInput.value);
+        applyValidationClass(emailInput, emailValid);
+        if (!emailValid) formIsValid = false;
+        
+        // Password Validation (Required: length > 6, letter, number)
+        const passwordValid = validatePassword(passwordInput.value);
+        applyValidationClass(passwordInput, passwordValid);
+        if (!passwordValid) formIsValid = false;
+        
+        // Confirm Password Validation (Required: must match password)
+        const passwordsMatch = passwordInput.value === confirmPasswordInput.value && confirmPasswordInput.value.length > 0;
+        applyValidationClass(confirmPasswordInput, passwordsMatch);
+        // Note: We use the dedicated feedback message to show "Passwords do not match."
+        if (!passwordsMatch) {
+            // Ensure the specific message is shown if they don't match
+            document.getElementById('signupConfirmPasswordFeedback').innerText = "Passwords do not match.";
+            formIsValid = false;
+        } else {
+            document.getElementById('signupConfirmPasswordFeedback').innerText = "This field is required."; // Reset default
+        }
+        
+        // Terms Check Validation
+        applyValidationClass(termsCheck, termsCheck.checked);
+        if (!termsCheck.checked) formIsValid = false;
+
+        if (formIsValid) {
+            // In a real application, you would send data to a server here.
+            alert("Sign Up Successful! Account Created. Redirecting to login...");
+            // Optionally redirect to login or dashboard
+            // showLogin(); 
+            window.location.href = "index.html"; 
+        } else {
+            alert("Please correct the errors in the sign-up form.");
+        }
+    }
+    
+    // Initialize state
+    document.addEventListener('DOMContentLoaded', () => {
+        // Ensure initial state is correct for the forms
+        showLogin(); 
+        
+        // Optional: Add event listeners for instant validation on blur
+        document.getElementById('signupPassword').addEventListener('blur', (e) => {
+            const isValid = validatePassword(e.target.value);
+            applyValidationClass(e.target, isValid);
+        });
+        document.getElementById('signupEmail').addEventListener('blur', (e) => {
+            const isValid = validateEmail(e.target.value);
+            applyValidationClass(e.target, isValid);
+        });
+    });
+
+</script>
+</body>
+</html>

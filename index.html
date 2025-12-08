@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edusign - AI-Powered Accessibility Education Platform</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#home">
+                <i class="bi bi-mortarboard-fill me-2"></i>
+                Edusign
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#home" onclick="showSection('home')">
+                            <i class="bi bi-house-fill me-1"></i>Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#camera" onclick="showSection('camera')">
+                            <i class="bi bi-camera-video-fill me-1"></i>Camera
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#lessons" onclick="showSection('lessons')">
+                            <i class="bi bi-book-fill me-1"></i>Lessons
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#progress" onclick="showSection('progress')">
+                            <i class="bi bi-graph-up me-1"></i>Progress
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#communication" onclick="showSection('communication')">
+                            <i class="bi bi-chat-dots-fill me-1"></i>Chat
+                        </a>
+                    </li>
+                </ul>
+                
+                <div class="navbar-nav">
+                    <div class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-person-circle me-1"></i>Profile
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#" onclick="showProfileModal()">
+                                <i class="bi bi-person me-2"></i>My Profile
+                            </a></li>
+                            <li><a class="dropdown-item" href="#" onclick="showSettingsModal()">
+                                <i class="bi bi-gear me-2"></i>Settings
+                            </a></li>
+                            <li><a class="dropdown-item" href="#" onclick="showHelpModal()">
+                                <i class="bi bi-question-circle me-2"></i>Help
+                            </a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#" onclick="logout()">
+                                <i class="bi bi-box-arrow-right me-2"></i>Logout
+                            </a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Home Section -->
+        <section id="home" class="section active">
+            <div class="container">
+                <!-- Hero Section -->
+                <div class="hero-section text-white rounded-4 p-5 mb-5">
+                    <div class="row align-items-center">
+                        <div class="col-lg-8">
+                            <h1 class="display-4 fw-bold mb-3">Welcome to Edusign</h1>
+                            <p class="lead mb-4">AI-Powered Accessibility Education Platform for Sign Language Learning</p>
+                            <div class="d-flex flex-wrap gap-3">
+                                <button class="btn btn-light btn-lg" onclick="showSection('camera')">
+                                    <i class="bi bi-camera-video-fill me-2"></i>Start Learning
+                                </button>
+                                <button class="btn btn-outline-light btn-lg" onclick="showSection('lessons')">
+                                    <i class="bi bi-book-fill me-2"></i>Browse Lessons
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 text-center">
+                            <i class="bi bi-mortarboard-fill display-1"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Stats -->
+                <div class="row g-4 mb-5">
+                    <div class="col-md-3 col-sm-6">
+                        <div class="stat-card card h-100">
+                            <div class="card-body text-center">
+                                <i class="bi bi-people-fill text-primary display-6 mb-3"></i>
+                                <h3 class="fw-bold text-primary">1,247</h3>
+                                <p class="text-muted mb-0">Active Students</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="stat-card card h-100">
+                            <div class="card-body text-center">
+                                <i class="bi bi-book-fill text-success display-6 mb-3"></i>
+                                <h3 class="fw-bold text-success">156</h3>
+                                <p class="text-muted mb-0">Lessons Available</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="stat-card card h-100">
+                            <div class="card-body text-center">
+                                <i class="bi bi-clock-fill text-warning display-6 mb-3"></i>
+                                <h3 class="fw-bold text-warning">2,340</h3>
+                                <p class="text-muted mb-0">Hours Learned</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="stat-card card h-100">
+                            <div class="card-body text-center">
+                                <i class="bi bi-award-fill text-info display-6 mb-3"></i>
+                                <h3 class="fw-bold text-info">89</h3>
+                                <p class="text-muted mb-0">Achievements</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Features -->
+                <div class="row g-4">
+                    <div class="col-lg-4">
+                        <div class="feature-card card h-100">
+                            <div class="card-body text-center">
+                                <i class="bi bi-camera-video-fill text-primary display-5 mb-3"></i>
+                                <h5 class="card-title">Real-time Recognition</h5>
+                                <p class="card-text">Advanced AI technology recognizes sign language in real-time with high accuracy.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="feature-card card h-100">
+                            <div class="card-body text-center">
+                                <i class="bi bi-person-video3 text-success display-5 mb-3"></i>
+                                <h5 class="card-title">Interactive Avatar</h5>
+                                <p class="card-text">Learn from our AI avatar teacher that demonstrates signs clearly and patiently.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="feature-card card h-100">
+                            <div class="card-body text-center">
+                                <i class="bi bi-graph-up text-info display-5 mb-3"></i>
+                                <h5 class="card-title">Progress Tracking</h5>
+                                <p class="card-text">Monitor your learning journey with detailed analytics and personalized feedback.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Camera Section -->
+        <section id="camera" class="section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h4 class="mb-0"><i class="bi bi-camera-video-fill me-2"></i>Sign Language Recognition</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="camera-container mb-3">
+                                    <video id="cameraFeed" class="w-100 rounded" style="display: none;"></video>
+                                    <div id="cameraStatus" class="camera-status">
+                                        <i class="bi bi-camera-video-off display-1 mb-3"></i>
+                                        <p>Click "Start Camera" to begin</p>
+                                    </div>
+                                    <canvas id="overlay" class="position-absolute top-0 start-0 w-100 h-100"></canvas>
+                                </div>
+                                
+                                <div class="d-flex flex-wrap gap-2 justify-content-center">
+                                    <button id="startCameraBtn" class="btn btn-primary" onclick="toggleCamera()">
+                                        <i class="bi bi-camera-video-fill me-2"></i>Start Camera
+                                    </button>
+                                    <button id="recordBtn" class="btn btn-danger" onclick="toggleRecording()" disabled>
+                                        <i class="bi bi-record-circle me-2"></i>Start Recording
+                                    </button>
+                                    <button id="voiceBtn" class="btn btn-secondary" onclick="toggleVoiceRecording()">
+                                        <i class="bi bi-mic-fill me-2"></i>Voice Input
+                                    </button>
+                                    <button class="btn btn-success" onclick="processSign()">
+                                        <i class="bi bi-lightning-fill me-2"></i>Process Sign
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Recognition Results -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0"><i class="bi bi-eye-fill me-2"></i>Recognition Results</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="alert alert-info" role="alert">
+                                    <i class="bi bi-info-circle me-2"></i>
+                                    <strong>Detected Sign:</strong> <span id="detectedSign">No sign detected yet</span>
+                                </div>
+                                <div class="alert alert-success" role="alert">
+                                    <i class="bi bi-robot me-2"></i>
+                                    <strong>AI Response:</strong> <span id="aiResponse">Ready to help you learn!</span>
+                                </div>
+                                <div class="progress mb-3">
+                                    <div id="confidenceBar" class="progress-bar bg-success" role="progressbar" style="width: 0%">
+                                        <span id="confidenceText">0% Confidence</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <!-- AI Avatar -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5 class="mb-0"><i class="bi bi-person-video3 me-2"></i>AI Teacher</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="avatar-container">
+                                    <div class="avatar-display">
+                                        <i class="bi bi-person-circle display-1 text-white"></i>
+                                        <span class="avatar-status badge bg-success">Online</span>
+                                    </div>
+                                    <h6 class="text-white mt-3">Ms. Sarah AI</h6>
+                                    <p class="text-white-50">Your AI Sign Language Teacher</p>
+                                    <button class="btn btn-light btn-sm" onclick="startAvatarDemo()">
+                                        <i class="bi bi-play-fill me-1"></i>Demo
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quick Actions -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h6 class="mb-0"><i class="bi bi-lightning-fill me-2"></i>Quick Actions</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-grid gap-2">
+                                    <button class="btn btn-outline-primary btn-sm" onclick="showSection('lessons')">
+                                        <i class="bi bi-book me-2"></i>Browse Lessons
+                                    </button>
+                                    <button class="btn btn-outline-success btn-sm" onclick="showSection('progress')">
+                                        <i class="bi bi-graph-up me-2"></i>View Progress
+                                    </button>
+                                    <button class="btn btn-outline-info btn-sm" onclick="showSection('communication')">
+                                        <i class="bi bi-chat-dots me-2"></i>Open Chat
+                                    </button>
+                                    <button class="btn btn-outline-warning btn-sm" onclick="showHelpModal()">
+                                        <i class="bi bi-question-circle me-2"></i>Get Help
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Lessons Section -->
+        <section id="lessons" class="section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <!-- Current Lesson -->
+                        <div class="card mb-4">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h4 class="mb-0"><i class="bi bi-play-circle-fill me-2"></i>Current Lesson</h4>
+                                <div class="lesson-controls">
+                                    <button class="btn btn-outline-secondary btn-sm" onclick="previousLesson()">
+                                        <i class="bi bi-skip-backward-fill"></i>
+                                    </button>
+                                    <button id="playPauseBtn" class="btn btn-primary btn-sm" onclick="toggleLessonPlay()">
+                                        <i class="bi bi-play-fill"></i>
+                                    </button>
+                                    <button class="btn btn-outline-secondary btn-sm" onclick="nextLesson()">
+                                        <i class="bi bi-skip-forward-fill"></i>
+                                    </button>
+                                    <button id="audioBtn" class="btn btn-outline-secondary btn-sm" onclick="toggleAudio()">
+                                        <i class="bi bi-volume-up-fill"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <h5 id="currentLessonTitle">Introduction to Mathematics</h5>
+                                <p id="currentLessonDesc" class="text-muted">Learn basic mathematical concepts with visual sign language explanations.</p>
+                                
+                                <div class="progress mb-3">
+                                    <div id="lessonProgressBar" class="progress-bar" role="progressbar" style="width: 25%">
+                                        25%
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <small class="text-muted">
+                                            <i class="bi bi-clock me-1"></i>Duration: <span id="lessonDuration">15 min</span>
+                                        </small>
+                                    </div>
+                                    <div class="col-md-6 text-end">
+                                        <small class="text-muted">
+                                            <i class="bi bi-bar-chart me-1"></i>Difficulty: <span id="lessonDifficulty">Beginner</span>
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Lesson Content -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0"><i class="bi bi-book-open me-2"></i>Lesson Content</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="lesson-video-placeholder bg-light rounded p-5 text-center mb-3">
+                                    <i class="bi bi-play-circle display-1 text-muted"></i>
+                                    <p class="text-muted mt-3">Lesson video will appear here</p>
+                                </div>
+                                
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group" role="group">
+                                        <button class="btn btn-outline-secondary btn-sm" onclick="changePlaybackSpeed()">
+                                            <i class="bi bi-speedometer2 me-1"></i><span id="speedText">1x</span>
+                                        </button>
+                                        <button id="subtitlesBtn" class="btn btn-outline-secondary btn-sm" onclick="toggleSubtitles()">
+                                            <i class="bi bi-badge-cc me-1"></i>CC
+                                        </button>
+                                    </div>
+                                    <button class="btn btn-success" onclick="markLessonComplete()">
+                                        <i class="bi bi-check-circle me-2"></i>Mark Complete
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <!-- Lesson List -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0"><i class="bi bi-list-ul me-2"></i>All Lessons</h5>
+                            </div>
+                            <div class="card-body p-0">
+                                <div id="lessonList" class="lesson-list">
+                                    <!-- Lessons will be populated by JavaScript -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Progress Section -->
+        <section id="progress" class="section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <!-- Overall Progress -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h4 class="mb-0"><i class="bi bi-graph-up me-2"></i>Learning Progress</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="progress-circle-container text-center">
+                                            <div class="progress-circle">
+                                                <svg width="120" height="120">
+                                                    <circle cx="60" cy="60" r="50" stroke="#e9ecef" stroke-width="8" fill="none"></circle>
+                                                    <circle cx="60" cy="60" r="50" stroke="#0d6efd" stroke-width="8" fill="none" 
+                                                            stroke-dasharray="314" stroke-dashoffset="125.6" class="progress-bar-circle"></circle>
+                                                </svg>
+                                                <div class="progress-text">
+                                                    <span class="h3">60%</span>
+                                                    <small class="d-block text-muted">Complete</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6>Subject Progress</h6>
+                                        <div class="mb-3">
+                                            <div class="d-flex justify-content-between">
+                                                <small>Mathematics</small>
+                                                <small>75%</small>
+                                            </div>
+                                            <div class="progress">
+                                                <div class="progress-bar bg-success" style="width: 75%"></div>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <div class="d-flex justify-content-between">
+                                                <small>Science</small>
+                                                <small>60%</small>
+                                            </div>
+                                            <div class="progress">
+                                                <div class="progress-bar bg-info" style="width: 60%"></div>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <div class="d-flex justify-content-between">
+                                                <small>English</small>
+                                                <small>45%</small>
+                                            </div>
+                                            <div class="progress">
+                                                <div class="progress-bar bg-warning" style="width: 45%"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Recent Achievements -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0"><i class="bi bi-award me-2"></i>Recent Achievements</h5>
+                            </div>
+                            <div class="card-body">
+                                <div id="achievementsList">
+                                    <!-- Achievements will be populated by JavaScript -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <!-- Weekly Stats -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h6 class="mb-0"><i class="bi bi-calendar-week me-2"></i>This Week</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="stat-box mb-3">
+                                    <h4 class="text-primary">12</h4>
+                                    <small class="text-muted">Lessons Completed</small>
+                                </div>
+                                <div class="stat-box mb-3">
+                                    <h4 class="text-success">4.5h</h4>
+                                    <small class="text-muted">Study Time</small>
+                                </div>
+                                <div class="stat-box">
+                                    <h4 class="text-warning">3</h4>
+                                    <small class="text-muted">New Achievements</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Learning Streak -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h6 class="mb-0"><i class="bi bi-fire me-2"></i>Learning Streak</h6>
+                            </div>
+                            <div class="card-body text-center">
+                                <div class="display-4 text-warning mb-2">🔥</div>
+                                <h3 class="text-warning">15 Days</h3>
+                                <p class="text-muted mb-0">Keep it up!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Communication Section -->
+        <section id="communication" class="section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <!-- Chat Interface -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="mb-0"><i class="bi bi-chat-dots-fill me-2"></i>AI Teacher Chat</h4>
+                            </div>
+                            <div class="card-body">
+                                <div id="chatContainer" class="chat-container mb-3">
+                                    <!-- Chat messages will be populated by JavaScript -->
+                                </div>
+                                
+                                <div class="input-group">
+                                    <input type="text" id="chatInput" class="form-control" placeholder="Type your message...">
+                                    <button class="btn btn-primary" onclick="sendMessage()">
+                                        <i class="bi bi-send-fill"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <!-- Quick Messages -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h6 class="mb-0"><i class="bi bi-lightning-fill me-2"></i>Quick Messages</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-grid gap-2">
+                                    <button class="btn btn-outline-primary btn-sm" onclick="sendQuickMessage('I need help')">
+                                        <i class="bi bi-question-circle me-2"></i>I need help
+                                    </button>
+                                    <button class="btn btn-outline-success btn-sm" onclick="sendQuickMessage('I understand')">
+                                        <i class="bi bi-check-circle me-2"></i>I understand
+                                    </button>
+                                    <button class="btn btn-outline-warning btn-sm" onclick="sendQuickMessage('Please repeat')">
+                                        <i class="bi bi-arrow-repeat me-2"></i>Please repeat
+                                    </button>
+                                    <button class="btn btn-outline-info btn-sm" onclick="sendQuickMessage('Show me more examples')">
+                                        <i class="bi bi-collection me-2"></i>More examples
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Text to Sign -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h6 class="mb-0"><i class="bi bi-translate me-2"></i>Text to Sign</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <textarea id="textToSign" class="form-control" rows="3" placeholder="Enter text to convert to sign language..."></textarea>
+                                </div>
+                                <button class="btn btn-success w-100" onclick="convertTextToSign()">
+                                    <i class="bi bi-arrow-right-circle me-2"></i>Convert to Signs
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Profile Modal -->
+    <div class="modal fade" id="profileModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title"><i class="bi bi-person-circle me-2"></i>User Profile</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-4 text-center">
+                            <div class="profile-avatar mb-3">
+                                <i class="bi bi-person-circle display-1 text-primary"></i>
+                            </div>
+                            <button class="btn btn-outline-primary btn-sm">Change Photo</button>
+                        </div>
+                        <div class="col-md-8">
+                            <form>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Full Name</label>
+                                        <input type="text" class="form-control" value="Alex Johnson">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Email</label>
+                                        <input type="email" class="form-control" value="alex.johnson@edusign.edu">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Phone</label>
+                                        <input type="tel" class="form-control" value="+1 (555) 123-4567">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Role</label>
+                                        <select class="form-select">
+                                            <option selected>Student</option>
+                                            <option>Teacher</option>
+                                            <option>Admin</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <label class="form-label">Address</label>
+                                        <textarea class="form-control" rows="2">123 Education St, Learning City, LC 12345</textarea>
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <label class="form-label">Emergency Contact</label>
+                                        <input type="text" class="form-control" value="Sarah Johnson - +1 (555) 987-6543">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Preferred Sign Language</label>
+                                        <select class="form-select">
+                                            <option selected>American Sign Language (ASL)</option>
+                                            <option>British Sign Language (BSL)</option>
+                                            <option>Indian Sign Language (ISL)</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Grade Level</label>
+                                        <select class="form-select">
+                                            <option selected>12th Grade</option>
+                                            <option>11th Grade</option>
+                                            <option>10th Grade</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <!-- Profile Stats -->
+                    <hr>
+                    <h6>Learning Statistics</h6>
+                    <div class="row">
+                        <div class="col-md-3 col-6 text-center">
+                            <div class="stat-box">
+                                <h4 class="text-primary">156</h4>
+                                <small>Lessons Completed</small>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-6 text-center">
+                            <div class="stat-box">
+                                <h4 class="text-success">89</h4>
+                                <small>Achievements</small>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-6 text-center">
+                            <div class="stat-box">
+                                <h4 class="text-warning">240h</h4>
+                                <small>Study Time</small>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-6 text-center">
+                            <div class="stat-box">
+                                <h4 class="text-info">15</h4>
+                                <small>Day Streak</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="saveProfile()">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="modal fade" id="settingsModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title"><i class="bi bi-gear me-2"></i>Settings</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- General Settings -->
+                    <div class="settings-section mb-4">
+                        <h6><i class="bi bi-sliders me-2"></i>General Settings</h6>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Theme</label>
+                                <select class="form-select" id="themeSelect">
+                                    <option value="light" selected>Light</option>
+                                    <option value="dark">Dark</option>
+                                    <option value="auto">Auto</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Language</label>
+                                <select class="form-select">
+                                    <option selected>English</option>
+                                    <option>Spanish</option>
+                                    <option>French</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" id="autoSave" checked>
+                            <label class="form-check-label" for="autoSave">Auto-save progress</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="soundEnabled" checked>
+                            <label class="form-check-label" for="soundEnabled">Enable sound effects</label>
+                        </div>
+                    </div>
+
+                    <!-- Camera Settings -->
+                    <div class="settings-section mb-4">
+                        <h6><i class="bi bi-camera-video me-2"></i>Camera Settings</h6>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Camera Quality</label>
+                                <select class="form-select">
+                                    <option>Low (480p)</option>
+                                    <option selected>Medium (720p)</option>
+                                    <option>High (1080p)</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Recognition Sensitivity</label>
+                                <select class="form-select">
+                                    <option>Low</option>
+                                    <option selected>Medium</option>
+                                    <option>High</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Accessibility Settings -->
+                    <div class="settings-section mb-4">
+                        <h6><i class="bi bi-universal-access me-2"></i>Accessibility</h6>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" id="highContrast">
+                            <label class="form-check-label" for="highContrast">High contrast mode</label>
+                        </div>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" id="largeText">
+                            <label class="form-check-label" for="largeText">Large text</label>
+                        </div>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" id="reducedMotion">
+                            <label class="form-check-label" for="reducedMotion">Reduce motion</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="screenReader">
+                            <label class="form-check-label" for="screenReader">Screen reader support</label>
+                        </div>
+                    </div>
+
+                    <!-- Notification Settings -->
+                    <div class="settings-section">
+                        <h6><i class="bi bi-bell me-2"></i>Notifications</h6>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" id="emailNotifications" checked>
+                            <label class="form-check-label" for="emailNotifications">Email notifications</label>
+                        </div>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" id="pushNotifications" checked>
+                            <label class="form-check-label" for="pushNotifications">Push notifications</label>
+                        </div>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" id="lessonReminders" checked>
+                            <label class="form-check-label" for="lessonReminders">Lesson reminders</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="progressUpdates" checked>
+                            <label class="form-check-label" for="progressUpdates">Progress updates</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="saveSettings()">Save Settings</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Help Modal -->
+    <div class="modal fade" id="helpModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title"><i class="bi bi-question-circle me-2"></i>Help & Support</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="nav flex-column nav-pills" role="tablist">
+                                <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#getting-started">
+                                    <i class="bi bi-play-circle me-2"></i>Getting Started
+                                </button>
+                                <button class="nav-link" data-bs-toggle="pill" data-bs-target="#camera-help">
+                                    <i class="bi bi-camera-video me-2"></i>Camera Setup
+                                </button>
+                                <button class="nav-link" data-bs-toggle="pill" data-bs-target="#lessons-help">
+                                    <i class="bi bi-book me-2"></i>Using Lessons
+                                </button>
+                                <button class="nav-link" data-bs-toggle="pill" data-bs-target="#troubleshooting">
+                                    <i class="bi bi-tools me-2"></i>Troubleshooting
+                                </button>
+                                <button class="nav-link" data-bs-toggle="pill" data-bs-target="#contact">
+                                    <i class="bi bi-envelope me-2"></i>Contact Support
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="tab-content">
+                                <div class="tab-pane fade show active" id="getting-started">
+                                    <h6>Getting Started with Edusign</h6>
+                                    <p>Welcome to Edusign! Here's how to get started:</p>
+                                    <ol>
+                                        <li><strong>Set up your profile:</strong> Click on your profile dropdown and update your information</li>
+                                        <li><strong>Configure camera:</strong> Go to the Camera section and allow camera access</li>
+                                        <li><strong>Start learning:</strong> Browse lessons and begin your sign language journey</li>
+                                        <li><strong>Track progress:</strong> Monitor your learning in the Progress section</li>
+                                    </ol>
+                                    <div class="alert alert-info">
+                                        <i class="bi bi-lightbulb me-2"></i>
+                                        <strong>Tip:</strong> Make sure you have good lighting for better sign recognition!
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="camera-help">
+                                    <h6>Camera Setup & Usage</h6>
+                                    <p>To use the sign language recognition feature:</p>
+                                    <ul>
+                                        <li>Click "Start Camera" to enable your webcam</li>
+                                        <li>Position yourself in the camera frame with good lighting</li>
+                                        <li>Make sure your hands are visible in the frame</li>
+                                        <li>Click "Start Recording" to begin sign recognition</li>
+                                        <li>Perform signs clearly and hold for 2-3 seconds</li>
+                                    </ul>
+                                    <div class="alert alert-warning">
+                                        <i class="bi bi-exclamation-triangle me-2"></i>
+                                        <strong>Note:</strong> Camera access is required for sign language recognition features.
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="lessons-help">
+                                    <h6>Using Lessons</h6>
+                                    <p>Navigate and use lessons effectively:</p>
+                                    <ul>
+                                        <li>Browse available lessons in the Lessons section</li>
+                                        <li>Click on any lesson to start learning</li>
+                                        <li>Use playback controls to pause, rewind, or adjust speed</li>
+                                        <li>Enable subtitles for better understanding</li>
+                                        <li>Mark lessons as complete when finished</li>
+                                        <li>Track your progress for each subject</li>
+                                    </ul>
+                                </div>
+                                <div class="tab-pane fade" id="troubleshooting">
+                                    <h6>Common Issues & Solutions</h6>
+                                    <div class="accordion" id="troubleshootingAccordion">
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#camera-not-working">
+                                                    Camera not working
+                                                </button>
+                                            </h2>
+                                            <div id="camera-not-working" class="accordion-collapse collapse" data-bs-parent="#troubleshootingAccordion">
+                                                <div class="accordion-body">
+                                                    <ul>
+                                                        <li>Check if camera permissions are granted</li>
+                                                        <li>Ensure no other applications are using the camera</li>
+                                                        <li>Try refreshing the page</li>
+                                                        <li>Check your browser settings</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sign-not-recognized">
+                                                    Signs not being recognized
+                                                </button>
+                                            </h2>
+                                            <div id="sign-not-recognized" class="accordion-collapse collapse" data-bs-parent="#troubleshootingAccordion">
+                                                <div class="accordion-body">
+                                                    <ul>
+                                                        <li>Ensure good lighting conditions</li>
+                                                        <li>Keep hands clearly visible in frame</li>
+                                                        <li>Perform signs slowly and clearly</li>
+                                                        <li>Adjust recognition sensitivity in settings</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="contact">
+                                    <h6>Contact Support</h6>
+                                    <p>Need additional help? Contact our support team:</p>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="card">
+                                                <div class="card-body text-center">
+                                                    <i class="bi bi-envelope-fill text-primary display-6 mb-2"></i>
+                                                    <h6>Email Support</h6>
+                                                    <p class="text-muted">support@edusign.edu</p>
+                                                    <small>Response within 24 hours</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="card">
+                                                <div class="card-body text-center">
+                                                    <i class="bi bi-chat-dots-fill text-success display-6 mb-2"></i>
+                                                    <h6>Live Chat</h6>
+                                                    <button class="btn btn-success btn-sm">Start Chat</button>
+                                                    <small class="d-block mt-2">Available 9 AM - 5 PM</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <hr>
+                                    <h6>Frequently Asked Questions</h6>
+                                    <div class="accordion" id="faqAccordion">
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                                    How accurate is the sign recognition?
+                                                </button>
+                                            </h2>
+                                            <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                                <div class="accordion-body">
+                                                    Our AI-powered sign recognition system achieves 95%+ accuracy under optimal conditions with proper lighting and clear hand positioning.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                                    Can I use this on mobile devices?
+                                                </button>
+                                            </h2>
+                                            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                                <div class="accordion-body">
+                                                    Yes! Edusign is fully responsive and works on tablets and smartphones. Camera features work best on devices with front-facing cameras.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="contactSupport()">Contact Support</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast Container -->
+    <div class="toast-container position-fixed top-0 end-0 p-3" id="toastContainer">
+        <!-- Toasts will be dynamically added here -->
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
